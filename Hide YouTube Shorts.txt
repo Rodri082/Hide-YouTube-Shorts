@@ -1,0 +1,81 @@
+! Title: Hide YouTube Shorts
+! Description: Hide all Shorts on YouTube (desktop and mobile)
+! Version: 2.0.0
+! Last modified: 2025-05-12
+! Expires: 2 weeks
+! Homepage: https://github.com/Rodri082/ublock-hide-youtube-shorts
+! License: MIT
+! Syntax: uBlock
+
+!#if !env_mobile
+
+! === DESKTOP ===
+
+! Elimina espacios vacíos en la cuadrícula
+www.youtube.com##ytd-rich-grid-row,#contents.ytd-rich-grid-row:style(display: contents !important)
+
+! Oculta vídeos con la etiqueta "#Shorts"
+www.youtube.com##ytd-grid-video-renderer:has(#video-title:has-text(/(^| )#Shorts?( |$)/i))
+www.youtube.com##ytd-rich-item-renderer:has(#video-title:has-text(/(^| )#Shorts?( |$)/i))
+
+! Oculta vídeos con el indicador SHORTS en la miniatura
+www.youtube.com##ytd-grid-video-renderer:has([overlay-style="SHORTS"])
+www.youtube.com##ytd-rich-item-renderer:has([overlay-style="SHORTS"])
+www.youtube.com##ytd-video-renderer:has([overlay-style="SHORTS"])
+www.youtube.com##ytd-item-section-renderer.ytd-section-list-renderer[page-subtype="subscriptions"]:has(ytd-video-renderer:has([overlay-style="SHORTS"]))
+
+! Oculta el botón de Shorts en la barra lateral
+www.youtube.com##ytd-guide-entry-renderer:has(yt-formatted-string:has-text(/^Shorts$/i))
+! Resolución tablet
+www.youtube.com##ytd-mini-guide-entry-renderer:has(.title:has-text(/^Shorts$/i))
+
+! Oculta secciones de Shorts (excepto en Historial)
+www.youtube.com##:matches-path(/^(?!\/feed\/history).*$/)ytd-rich-section-renderer:has(#title:has-text(/(^| )Shorts( |$)/i))
+www.youtube.com##:matches-path(/^(?!\/feed\/history).*$/)ytd-reel-shelf-renderer:has(.ytd-reel-shelf-renderer:has-text(/(^| )Shorts( |$)/i))
+
+! Oculta pestaña Shorts en páginas de canal
+! Estilo antiguo
+www.youtube.com##tp-yt-paper-tab:has(.tp-yt-paper-tab:has-text(Shorts))
+! Estilo nuevo (2023-10)
+www.youtube.com##yt-tab-shape:has-text(/^Shorts$/)
+
+! Oculta remixes cortos en descripciones y sugerencias
+www.youtube.com##ytd-reel-shelf-renderer:has(#title:has-text(/(^| )Shorts.?Remix.*$/i))
+
+! Oculta categoría Shorts en Home y búsquedas
+www.youtube.com##yt-chip-cloud-chip-renderer:has(yt-formatted-string:has-text(/^Shorts$/i))
+
+!#endif
+
+!#if env_mobile
+
+! === MÓVIL (m.youtube.com / youtube.com móvil) ===
+
+! Vídeos con "#Shorts" en feed principal móvil
+m.youtube.com##ytm-rich-item-renderer:has(#video-title:has-text(/(^| )#Shorts?( |$)/i))
+! Vídeos con "#Shorts" en feed de suscripciones
+m.youtube.com##ytm-item-section-renderer:has(#video-title:has-text(/(^| )#Shorts?( |$)/i))
+
+! Botón Shorts en la barra de navegación inferior
+m.youtube.com##ytm-pivot-bar-item-renderer:has(.pivot-shorts)
+
+! Indicador SHORTS en miniaturas móviles
+m.youtube.com##ytm-video-with-context-renderer:has([data-style="SHORTS"])
+
+! Secciones de Shorts (excepto Historial) en móvil
+m.youtube.com##:matches-path(/^(?!\/feed\/history).*$/)ytm-rich-section-renderer:has(.reel-shelf-title-wrapper .yt-core-attributed-string:has-text(/(^| )Shorts( |$)/i))
+m.youtube.com##:matches-path(/^(?!\/feed\/history).*$/)ytm-reel-shelf-renderer.item:has(.reel-shelf-title-wrapper .yt-core-attributed-string:has-text(/(^| )Shorts( |$)/i))
+
+! Pestaña Shorts en canal (móvil)
+! Estilo antiguo
+m.youtube.com##.single-column-browse-results-tabs>a:has-text(Shorts)
+! Estilo nuevo (2023-10)
+m.youtube.com##yt-tab-shape:has-text(/^Shorts$/)
+
+! Remixes cortos en descripciones y sugerencias móviles
+m.youtube.com##ytm-reel-shelf-renderer:has(.reel-shelf-title-wrapper .yt-core-attributed-string:has-text(/(^| )Shorts.?Remix.*$/i))
+
+! Elimina estantes de Shorts en móvil (nueva regla)
+m.youtube.com##ytm-rich-section-renderer:has(.rich-section-content)
+
+!#endif
