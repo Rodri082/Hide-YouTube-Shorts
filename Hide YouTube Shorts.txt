@@ -9,8 +9,6 @@
 
 !#if !env_mobile
 
-! === DESKTOP ===
-
 ! Removes empty spaces in the grid
 www.youtube.com##ytd-rich-grid-row,#contents.ytd-rich-grid-row:style(display: contents !important)
 
@@ -48,8 +46,6 @@ www.youtube.com##yt-chip-cloud-chip-renderer:has(yt-formatted-string:has-text(/^
 !#endif
 
 !#if env_mobile
-
-! === MÓVIL (m.youtube.com / youtube.com móvil) ===
 
 ! Videos with “#Shorts” in main mobile feed
 m.youtube.com##ytm-rich-item-renderer:has(#video-title:has-text(/(^| )#Shorts?( |$)/i))
