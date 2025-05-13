@@ -4,7 +4,7 @@
 ! Last modified: 2025-05-12
 ! Expires: 2 weeks
 ! Homepage: https://github.com/Rodri082/ublock-hide-youtube-shorts
-! License: MIT
+! License: https://github.com/Rodri082/Hide-YouTube-Shorts/blob/main/LICENSE
 ! Syntax: uBlock
 
 !#if !env_mobile
