@@ -38,7 +38,7 @@ www.youtube.com##tp-yt-paper-tab:has-text(/^Shorts$/i)
 www.youtube.com##yt-tab-shape:has-text(/^Shorts$/)
 
 ! Hide "Shorts Remix" from related & description
-www.youtube.com##ytd-reel-shelf-renderer:has(#title:has-text(/Shorts.?Remix/i))
+www.youtube.com##ytd-reel-shelf-renderer:has(#title:has-text(/(^| )Shorts.?Remix.*$/i))
 
 ! Hide Shorts chip filter in search & homepage
 www.youtube.com##yt-chip-cloud-chip-renderer:has(yt-formatted-string:has-text(/^Shorts$/i))
