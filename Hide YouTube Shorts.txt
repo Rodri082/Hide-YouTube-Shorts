@@ -1,7 +1,7 @@
 ! Title: Hide YouTube Shorts
 ! Description: Hide all Shorts on YouTube (desktop and mobile)
-! Version: 2.0.0
-! Last modified: 2025-05-12
+! Version: 2.1.0
+! Last modified: 2025-07-02
 ! Expires: 2 weeks
 ! Homepage: https://github.com/Rodri082/ublock-hide-youtube-shorts
 ! License: https://github.com/Rodri082/Hide-YouTube-Shorts/blob/main/LICENSE
@@ -9,69 +9,64 @@
 
 !#if !env_mobile
 
-! Removes empty spaces in the grid
-www.youtube.com##ytd-rich-grid-row,#contents.ytd-rich-grid-row:style(display: contents !important)
+! Remove blank space left by hidden items
+www.youtube.com##ytd-rich-grid-row, #contents.ytd-rich-grid-row:style(display: contents !important)
 
-! Hide videos with the hashtag “#Shorts”.
-www.youtube.com##ytd-grid-video-renderer:has(#video-title:has-text(/(^| )#Shorts?( |$)/i))
-www.youtube.com##ytd-rich-item-renderer:has(#video-title:has-text(/(^| )#Shorts?( |$)/i))
-
-! Hide videos with the SHORTS indicator in the thumbnail
+! Hide any Shorts (thumbnail overlay)
 www.youtube.com##ytd-grid-video-renderer:has([overlay-style="SHORTS"])
 www.youtube.com##ytd-rich-item-renderer:has([overlay-style="SHORTS"])
 www.youtube.com##ytd-video-renderer:has([overlay-style="SHORTS"])
-www.youtube.com##ytd-item-section-renderer.ytd-section-list-renderer[page-subtype="subscriptions"]:has(ytd-video-renderer:has([overlay-style="SHORTS"]))
+www.youtube.com##ytd-reel-video-renderer
+www.youtube.com##ytd-reel-shelf-renderer
+www.youtube.com##ytd-reel-player-overlay-renderer
 
-! Hide Shorts button in the sidebar
+! Hide #Shorts in titles (main feed and search results)
+www.youtube.com##ytd-grid-video-renderer:has(#video-title:has-text(/#Shorts/i))
+www.youtube.com##ytd-rich-item-renderer:has(#video-title:has-text(/#Shorts/i))
+www.youtube.com##ytd-video-renderer:has(#video-title:has-text(/#Shorts/i))
+
+! Hide Shorts section (shelf renderer)
+www.youtube.com##ytd-rich-section-renderer:has(#title:matches-css(^h2$):has-text(/^Shorts$/i))
+www.youtube.com##ytd-reel-shelf-renderer
+
+! Hide Shorts sidebar button (desktop & tablet)
 www.youtube.com##ytd-guide-entry-renderer:has(yt-formatted-string:has-text(/^Shorts$/i))
-! Tablet resolution
 www.youtube.com##ytd-mini-guide-entry-renderer:has(.title:has-text(/^Shorts$/i))
 
-! Hide Shorts sections (except in History)
-www.youtube.com##:matches-path(/^(?!\/feed\/history).*$/)ytd-rich-section-renderer:has(#title:has-text(/(^| )Shorts( |$)/i))
-www.youtube.com##:matches-path(/^(?!\/feed\/history).*$/)ytd-reel-shelf-renderer:has(.ytd-reel-shelf-renderer:has-text(/(^| )Shorts( |$)/i))
-
-! Hide Shorts tab on channel pages
-! Old style
-www.youtube.com##tp-yt-paper-tab:has(.tp-yt-paper-tab:has-text(Shorts))
-! New style (2023-10)
+! Hide Shorts tab on channel pages (all designs)
+www.youtube.com##tp-yt-paper-tab:has-text(/^Shorts$/i)
 www.youtube.com##yt-tab-shape:has-text(/^Shorts$/)
 
-! Hide short remixes in descriptions and suggestions
-www.youtube.com##ytd-reel-shelf-renderer:has(#title:has-text(/(^| )Shorts.?Remix.*$/i))
+! Hide "Shorts Remix" from related & description
+www.youtube.com##ytd-reel-shelf-renderer:has(#title:has-text(/Shorts.?Remix/i))
 
-! Hide Shorts category in Home and Searches
+! Hide Shorts chip filter in search & homepage
 www.youtube.com##yt-chip-cloud-chip-renderer:has(yt-formatted-string:has-text(/^Shorts$/i))
 
 !#endif
 
 !#if env_mobile
 
-! Videos with “#Shorts” in main mobile feed
-m.youtube.com##ytm-rich-item-renderer:has(#video-title:has-text(/(^| )#Shorts?( |$)/i))
-! Videos with “#Shorts” in subscriber feed
-m.youtube.com##ytm-item-section-renderer:has(#video-title:has-text(/(^| )#Shorts?( |$)/i))
-
-! Shorts button in the bottom navigation bar
-m.youtube.com##ytm-pivot-bar-item-renderer:has(.pivot-shorts)
-
-! SHORTS indicator on moving thumbnails
+! Hide Shorts sections (including moving thumbnails)
+m.youtube.com##ytm-reel-shelf-renderer
+m.youtube.com##ytm-rich-section-renderer:has(.reel-shelf-title-wrapper .yt-core-attributed-string:has-text(/Shorts/i))
 m.youtube.com##ytm-video-with-context-renderer:has([data-style="SHORTS"])
 
-! Shorts sections (except History) on mobile
-m.youtube.com##:matches-path(/^(?!\/feed\/history).*$/)ytm-rich-section-renderer:has(.reel-shelf-title-wrapper .yt-core-attributed-string:has-text(/(^| )Shorts( |$)/i))
-m.youtube.com##:matches-path(/^(?!\/feed\/history).*$/)ytm-reel-shelf-renderer.item:has(.reel-shelf-title-wrapper .yt-core-attributed-string:has-text(/(^| )Shorts( |$)/i))
+! Hide videos with #Shorts in title (mobile)
+m.youtube.com##ytm-rich-item-renderer:has(#video-title:has-text(/#Shorts/i))
+m.youtube.com##ytm-item-section-renderer:has(#video-title:has-text(/#Shorts/i))
 
-! Shorts tab in channel (mobile)
-! Old style
-m.youtube.com##.single-column-browse-results-tabs>a:has-text(Shorts)
-! New style (2023-10)
+! Hide Shorts navigation (bottom bar button)
+m.youtube.com##ytm-pivot-bar-item-renderer:has(.pivot-shorts)
+
+! Hide Shorts tab in channel pages (mobile)
+m.youtube.com##.single-column-browse-results-tabs>a:has-text(/^Shorts$/i)
 m.youtube.com##yt-tab-shape:has-text(/^Shorts$/)
 
-! Short remixes in descriptions and mobile suggestions
-m.youtube.com##ytm-reel-shelf-renderer:has(.reel-shelf-title-wrapper .yt-core-attributed-string:has-text(/(^| )Shorts.?Remix.*$/i))
+! Hide "Shorts Remix" sections on mobile
+m.youtube.com##ytm-reel-shelf-renderer:has(.reel-shelf-title-wrapper .yt-core-attributed-string:has-text(/Remix/i))
 
-! Eliminate Shorts shelves on mobile (new rule)
+! Remove full Shorts shelves (redundant safety)
 m.youtube.com##ytm-rich-section-renderer:has(.rich-section-content)
 
 !#endif
