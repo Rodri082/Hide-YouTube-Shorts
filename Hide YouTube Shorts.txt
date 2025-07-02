@@ -59,6 +59,9 @@ m.youtube.com##ytm-item-section-renderer:has(#video-title:has-text(/#Shorts/i))
 ! Hide Shorts navigation (bottom bar button)
 m.youtube.com##ytm-pivot-bar-item-renderer:has(.pivot-shorts)
 
+! Old style
+m.youtube.com##.single-column-browse-results-tabs>a:has-text(Shorts)
+
 ! Hide Shorts tab in channel pages (mobile)
 m.youtube.com##.single-column-browse-results-tabs>a:has-text(/^Shorts$/i)
 m.youtube.com##yt-tab-shape:has-text(/^Shorts$/)
