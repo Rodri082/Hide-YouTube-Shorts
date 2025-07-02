@@ -26,8 +26,8 @@ www.youtube.com##ytd-rich-item-renderer:has(#video-title:has-text(/#Shorts/i))
 www.youtube.com##ytd-video-renderer:has(#video-title:has-text(/#Shorts/i))
 
 ! Hide Shorts section (shelf renderer)
-www.youtube.com##ytd-rich-section-renderer:has(#title:matches-css(^h2$):has-text(/^Shorts$/i))
-www.youtube.com##ytd-reel-shelf-renderer
+www.youtube.com##:matches-path(/^(?!\/feed\/history).*$/) ytd-rich-section-renderer:has(#title:has-text(/(^| )Shorts( |$)/i))
+www.youtube.com##:matches-path(/^(?!\/feed\/history).*$/) ytd-reel-shelf-renderer:has-text(/(^| )Shorts( |$)/i)
 
 ! Hide Shorts sidebar button (desktop & tablet)
 www.youtube.com##ytd-guide-entry-renderer:has(yt-formatted-string:has-text(/^Shorts$/i))
